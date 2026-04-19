@@ -1,0 +1,31 @@
+{
+  "name": "nexusshop-backend",
+  "version": "1.0.0",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "npx ts-node server.ts",
+    "build": "npx tsc",
+    "start": "node dist/server.js"
+  },
+  "keywords": ["ecommerce", "typescript", "solid", "cqrs"],
+  "author": "Manmath Mohanty",
+  "license": "ISC",
+  "description": "E-commerce backend with SOLID principles and system design patterns",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^25.6.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
