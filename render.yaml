@@ -1,0 +1,40 @@
+services:
+  # -------------------------
+  # BACKEND - Node/Express Server
+  # -------------------------
+  - type: web
+    name: nexusshop-backend
+    env: node
+    region: ohio
+    # The directory where the backend code lives
+    rootDir: backend
+    # Install dependencies and compile TypeScript
+    buildCommand: npm install && npm run build
+    # Run the compiled server
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false # You will need to add your actual Mongo URI securely in the Render dashboard!
+      - key: JWT_SECRET
+        generateValue: true # Render will automatically generate a secure 256-bit random string for you!
+
+  # -------------------------
+  # FRONTEND - React/Vite Static Site
+  # -------------------------
+  - type: web
+    name: nexusshop-frontend
+    env: static
+    region: ohio
+    # The directory where frontend code lives
+    rootDir: frontend
+    # Install dependencies and build static assets
+    buildCommand: npm install && npm run build
+    # Vite outputs the production build to the 'dist' directory
+    staticPublishPath: dist
+    envVars:
+      # If your frontend needs to know where the backend is:
+      # (Ideally, you'd replace the localhost URL in api.ts with an environment variable)
+      - key: VITE_API_BASE_URL
+        value: https://nexusshop-backend.onrender.com/api
