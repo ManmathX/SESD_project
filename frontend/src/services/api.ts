@@ -31,7 +31,18 @@ class ApiService {
             headers: { ...headers, ...options.headers as Record<string, string> },
         });
 
-        const data = await response.json();
+        const textText = await response.text();
+        
+        let data;
+        try {
+            data = JSON.parse(textText);
+        } catch (e) {
+            if (textText.trim().startsWith('<')) {
+                throw new Error("API returned an HTML page. Please verify that your VITE_API_BASE_URL endpoint is correctly configured in your deployment settings.");
+            }
+            throw new Error("Invalid format received from API.");
+        }
+
         if (!response.ok) throw new Error(data.error || 'Request failed');
         return data;
     }
