@@ -1,14 +1,8 @@
-// backend/shared/EventBus.ts
-
-export interface DomainEvent {
-    eventName: string;
-    occurredOn: Date;
-    [key: string]: any;
-}
+import { IEventBus, DomainEvent } from './interfaces/IEventBus';
 
 type EventHandler = (event: DomainEvent) => void | Promise<void>;
 
-export class EventBus {
+export class EventBus implements IEventBus {
     private static instance: EventBus;
     private handlers: Map<string, EventHandler[]> = new Map();
 
@@ -24,22 +18,17 @@ export class EventBus {
     public subscribe(eventName: string, handler: EventHandler): void {
         const currentHandlers = this.handlers.get(eventName) || [];
         this.handlers.set(eventName, [...currentHandlers, handler]);
-        console.log(`[EventBus] Subscribed to ${eventName}`);
     }
 
     public async publish(event: DomainEvent): Promise<void> {
-        console.log(`[EventBus] Publishing ${event.eventName}`, event);
         const handlers = this.handlers.get(event.eventName);
-        if (handlers) {
-            for (const handler of handlers) {
-                try {
-                    await handler(event);
-                } catch (error) {
-                    console.error(`[EventBus] Error handling event ${event.eventName}:`, error);
-                }
+        if (!handlers) return;
+        for (const handler of handlers) {
+            try {
+                await handler(event);
+            } catch (error) {
+                console.error(`EventBus error on ${event.eventName}:`, error);
             }
-        } else {
-             console.log(`[EventBus] No handlers for ${event.eventName}`);
         }
     }
 }
