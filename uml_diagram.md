@@ -1,37 +1,6 @@
 # E-Commerce Architecture Diagram
 
 
-> "Create a UML Class Diagram describing a backend e-commerce architecture. 
-> The system adheres to SOLID principles and Clean Architecture (Domain-Driven Design). 
-> Show the following Core Components and their relationships:
-> 
-> 1. Interfaces:
-> - `IRepository<T>` (Provides data access abstraction for Dependency Inversion)
-> - `IEventBus` (Abstraction for Pub-Sub event handling)
-> 
-> 2. Shared Infrastructure:
-> - `DatabaseConnection` (Singleton managing MongoDB lifecycle)
-> - `EventBus` (In-memory singleton implementing `IEventBus`)
-> - `AuthMiddleware` (Handles JWT structural validation and role checks)
-> 
-> 3. Auth Service Layer:
-> - `UserModel` & `UserRepository` (Implements `IRepository<IUser>`)
-> - `AuthService` (Uses `UserRepository` for auth logic)
-> - `AuthController` & `AuthRoutes`
-> 
-> 4. Catalog Service Layer:
-> - `ProductModel` & `ProductRepository` (Implements `IRepository<IProduct>`)
-> - `ProductService` (Uses `ProductRepository` and publishes events via `EventBus`)
-> - `ProductController` & `ProductRoutes`
-> 
-> 5. Order Service Layer:
-> - `OrderModel` & `OrderRepository` (Implements `IRepository<IOrder>`)
-> - `OrderService` (Uses `OrderRepository` and listens/publishes via `EventBus`)
-> - `OrderController` & `OrderRoutes`
-> 
-> Arrows should denote 'uses/depends on', 'implements', and 'publishes/subscribes to'."
-
----
 
 ## Mermaid Diagram
 
