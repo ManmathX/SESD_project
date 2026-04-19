@@ -14,9 +14,9 @@ export function createProductRoutes(): Router {
 
     router.get('/', productController.getAll);
     router.get('/:id', productController.getById);
-    router.post('/', AuthMiddleware.verify, productController.create);
-    router.put('/:id', AuthMiddleware.verify, productController.update);
-    router.delete('/:id', AuthMiddleware.verify, productController.remove);
+    router.post('/', AuthMiddleware.requireAdmin, productController.create);
+    router.put('/:id', AuthMiddleware.requireAdmin, productController.update);
+    router.delete('/:id', AuthMiddleware.requireAdmin, productController.remove);
 
     return router;
 }

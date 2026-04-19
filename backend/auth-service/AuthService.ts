@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { UserRepository } from './UserRepository';
 
 interface AuthResponse {
-    user: { id: string; name: string; email: string };
+    user: { id: string; name: string; email: string; role: string };
     token: string;
 }
 
@@ -17,10 +17,10 @@ export class AuthService {
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = await this.userRepo.create({ name, email, password: hashedPassword });
         const userId = String(user._id);
-        const token = this.generateToken(userId);
+        const token = this.generateToken(userId, user.role);
 
         return {
-            user: { id: userId, name: user.name, email: user.email },
+            user: { id: userId, name: user.name, email: user.email, role: user.role },
             token
         };
     }
@@ -33,15 +33,15 @@ export class AuthService {
         if (!isMatch) throw new Error("Invalid credentials");
 
         const userId = String(user._id);
-        const token = this.generateToken(userId);
+        const token = this.generateToken(userId, user.role);
 
         return {
-            user: { id: userId, name: user.name, email: user.email },
+            user: { id: userId, name: user.name, email: user.email, role: user.role },
             token
         };
     }
 
-    private generateToken(userId: string): string {
-        return jwt.sign({ userId }, process.env['JWT_SECRET'] || 'fallback_secret', { expiresIn: '7d' });
+    private generateToken(userId: string, role: string): string {
+        return jwt.sign({ userId, role }, process.env['JWT_SECRET'] || 'fallback_secret', { expiresIn: '7d' });
     }
 }

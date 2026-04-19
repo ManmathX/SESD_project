@@ -77,6 +77,11 @@ export default function ShopPage() {
                 <div className="logo gradient-text">NexusShop</div>
                 <div className="nav-right">
                     <span className="user-greeting">Hi, {user?.name}</span>
+                    {user?.role === 'admin' && (
+                        <button className="cart-btn" onClick={() => window.location.href = '/admin'}>
+                            Admin Panel
+                        </button>
+                    )}
                     <button className="cart-btn" onClick={() => setShowCart(!showCart)}>
                         Cart ({cart.reduce((sum, i) => sum + i.quantity, 0)})
                     </button>

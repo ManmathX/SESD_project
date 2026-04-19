@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
 import ShopPage from './pages/ShopPage';
+import AdminPage from './pages/AdminPage';
 import './index.css';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -20,6 +21,11 @@ function AppRoutes() {
             <Route path="/" element={
                 <ProtectedRoute>
                     <ShopPage />
+                </ProtectedRoute>
+            } />
+            <Route path="/admin" element={
+                <ProtectedRoute>
+                    <AdminPage />
                 </ProtectedRoute>
             } />
         </Routes>
