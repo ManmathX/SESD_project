@@ -1,6 +1,5 @@
 # E-Commerce Architecture Diagram
 
-Here is a prompt you can use in any AI diagramming tool (like ChatGPT, Claude, or directly in PlantUML/Mermaid visualizers) to generate a UML class diagram of the architecture:
 
 > "Create a UML Class Diagram describing a backend e-commerce architecture. 
 > The system adheres to SOLID principles and Clean Architecture (Domain-Driven Design). 
